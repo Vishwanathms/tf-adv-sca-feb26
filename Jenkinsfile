@@ -65,6 +65,16 @@ pipeline {
         """
       }
     }
+    stage("Terraform plan") {
+      steps {
+        sh """
+          cd ${TF_DIR}
+          terraform plan   -out=tfplan
+          terraform show -json tfplan > tfplan.json
+
+        """
+      }
+    }
   }
   post {
     always {
