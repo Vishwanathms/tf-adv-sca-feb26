@@ -52,7 +52,16 @@ pipeline {
     //     """
     //   }
     // }
+    stage("Terraform plan") {
+      steps {
+        sh """
+          cd ${TF_DIR}
+          terraform plan   -out=tfplan
+          terraform show -json tfplan > tfplan.json
 
+        """
+      }
+    }
     stage("checkov") {
       steps {
         sh """
@@ -65,16 +74,7 @@ pipeline {
         """
       }
     }
-    stage("Terraform plan") {
-      steps {
-        sh """
-          cd ${TF_DIR}
-          terraform plan   -out=tfplan
-          terraform show -json tfplan > tfplan.json
 
-        """
-      }
-    }
   }
   post {
     always {
