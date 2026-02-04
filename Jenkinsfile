@@ -53,20 +53,6 @@ pipeline {
     //   }
     // }
 
-  //   stage("checkov") {
-  //     steps {
-  //       sh """
-  //         # Run checkov via docker and scan terraform directory
-  //         docker run --rm \
-  //           -v "$PWD:/repo" -w /repo \
-  //           bridgecrew/checkov:latest \
-  //           -d ${TF_DIR} \
-  //           --config-file /repo/.checkov.yml
-  //       """
-  //     }
-  //   }
-  // }
-
     stage("checkov") {
       steps {
         sh """
