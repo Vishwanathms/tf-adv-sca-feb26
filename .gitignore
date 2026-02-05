@@ -1,0 +1,5 @@
+.terraform/
+.terraform.local.hcl
+*.tfstate
+*.lock.hcl
+vault.tf

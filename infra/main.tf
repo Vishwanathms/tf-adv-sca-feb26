@@ -2,17 +2,9 @@ provider "aws" {
   region = "us-east-1"
 }
 
-data "aws_secretsmanager_secret_version" "api" {
-  secret_id = "prod/app/api_key"
-}
-
-resource "aws_instance" "secure_app" {
+resource "aws_instance" "secure_app1" {
   ami           = "ami-0c02fb55956c7d316"
   instance_type = "t3.micro"
-
-  user_data = templatefile("userdata.sh", {
-    api_key = data.aws_secretsmanager_secret_version.api.secret_string
-  })
 
   tags = {
     Name = "Secure-App-Server"
@@ -20,7 +12,7 @@ resource "aws_instance" "secure_app" {
 }
 
 # ❌ BAD: Missing encryption, missing tags
-resource "aws_s3_bucket" "bad_bucket" {
+resource "aws_s3_bucket" "bad_bucket01" {
   bucket = "lab11-bad-bucket-demo-12345"
 }
 
